@@ -17,8 +17,10 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 
 #Load data
 def get_dataset(filename):
-    dataset = pd.read_csv(filename, delimiter='\t', quoting=3)
+    dataset = pd.read_csv('data/input/a1_RestaurantReviews_HistoricDump.tsv', delimiter='\t', quoting=3)
     return dataset
+
+
 
 # Pre-processing 
 def pre_processing(dataset):
@@ -56,7 +58,7 @@ def evaluate_model(classifier, X_test, y_test):
 
 
 def main():
-    dataset = get_dataset('data/a1_RestaurantReviews_HistoricDump.tsv')
+    dataset = get_dataset('data/input/a1_RestaurantReviews_HistoricDump.tsv')
     corpus = pre_processing(dataset)
 
     cv = CountVectorizer(max_features=1420)
