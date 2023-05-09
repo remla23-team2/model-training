@@ -1,19 +1,30 @@
-# model-training
+# Model-training
 Contains the ML training pipeline. 
-This repository is dedicated to storing all training-related files for the Machine Learning (ML) part of the course. For now, simply add all relevant files here. 
+This repository is dedicated to storing all training-related files for the Machine Learning (ML) part of the course. 
 
-## Requirements
+## Instructions
 
-- [ ] Identify the set of requirements and create a `requirements.txt` file to list all necessary dependencies.
+### Clone the Repository
+Create a local copy of this repository by cloning it 
+```
+git clone https://github.com/remla23-team2/model-training.git
+```
+  
+#### Install Requirements
+Run the following commands from your terminal in the application folder:
+```
+pip install -r requirements.txt
+```
 
-## Training a Model
+#### Run the main
+In your terminal, run the following commands:
+```
+python main.py
+```
 
-- [ ] Identify the required steps to train a model.
-- [ ] Save the trained model in an accessible location, so it can be integrated into the `model-service`.
-
-**Note:** At this stage, no automation is required for model training.
-
-## Pre-processing
-
-- [ ] A major goal of this project is to factor out the pre-processing step and make it reusable in the `model-service`. 
+## Docker
+Open the terminal (in the application folder) and run the following commands to create a Docker image:
+```shell script
+docker build -t ghcr.io/remla23-team2/model-training:VERSION .
+```
 
