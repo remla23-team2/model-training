@@ -1,5 +1,5 @@
-# Use the Python 3.7 image
-FROM python:3.7
+# Use the Python 3.9 image
+FROM python:3.9
 
 # Set the working directory
 WORKDIR /root
@@ -13,6 +13,7 @@ RUN pip install -r requirements.txt
 # Copy the application code to the container
 COPY main.py /root/
 COPY /data/ /root/data/
+COPY /src/ /root/src/
 
 # Set the entrypoint and default command for the container
 ENTRYPOINT ["python"]
