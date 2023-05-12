@@ -1,5 +1,5 @@
-# Use the Python 3.7 image
-FROM python:3.7
+# Use the Python 3.9 image
+FROM python:3.9
 
 # Set the working directory
 WORKDIR /root
