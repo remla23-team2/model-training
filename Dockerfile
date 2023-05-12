@@ -13,6 +13,7 @@ RUN pip install -r requirements.txt
 # Copy the application code to the container
 COPY main.py /root/
 COPY /data/ /root/data/
+COPY /src/ /root/src/
 
 # Set the entrypoint and default command for the container
 ENTRYPOINT ["python"]
