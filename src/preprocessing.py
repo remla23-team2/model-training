@@ -1,24 +1,31 @@
 import re
 import pickle
+import pandas as pd
+import nltk
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 
-def pre_process(dataset):
-    ps = PorterStemmer()
-    all_stopwords = stopwords.words('english')
-    all_stopwords.remove('not')
+ps = PorterStemmer()
+all_stopwords = stopwords.words('english')
+all_stopwords.remove('not')
 
+def process_review(review: str):
+    review = re.sub('[^a-zA-Z]', ' ', review)
+    review = review.lower()
+    review = review.split()
+    review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
+    review = ' '.join(review)
+    return review
+
+def pre_process(dataset: pd.DataFrame):
     corpus = []
     for i in range(0, 900):
-        review = re.sub('[^a-zA-Z]', ' ', dataset['Review'][i])
-        review = review.lower()
-        review = review.split()
-        review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
-        review = ' '.join(review)
-        corpus.append(review)
+        processed_review = process_review(dataset['Review'][i])
+        corpus.append(processed_review)
 
     cv = CountVectorizer(max_features=1420)
     X = cv.fit_transform(corpus).toarray()
