@@ -14,6 +14,7 @@ RUN pip install -r requirements.txt
 COPY main.py .
 COPY data data
 COPY src src
+COPY code code
 
 # Set the entrypoint and default command for the container
 ENTRYPOINT ["/bin/bash"]
