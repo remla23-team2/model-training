@@ -16,5 +16,4 @@ COPY data data
 COPY src src
 
 # Set the entrypoint and default command for the container
-ENTRYPOINT ["python"]
-CMD ["main.py"]
+ENTRYPOINT ["/bin/bash"]
