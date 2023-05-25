@@ -1,0 +1,66 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python src/getdata.py
+    deps:
+    - path: src/getdata.py
+      md5: 38cd9adc86a8d2bcd11d5792b098184a
+      size: 264
+    outs:
+    - path: output/getdata/data.tsv
+      md5: 176b7c728fe952e5d73c3b950299163f
+      size: 59078
+  preprocess:
+    cmd: python src/preprocessing.py
+    deps:
+    - path: output/getdata/
+      md5: d67b6e180d525407d36234d7b89b856d.dir
+      size: 59089
+      nfiles: 2
+    - path: src/preprocessing.py
+      md5: ffb9d5d8f16ae26a6aca8452036ca4a9
+      size: 1739
+    outs:
+    - path: output/preprocess/X_test.pkl
+      md5: dff7bd7ca2acd9aeba2f2ee274f06979
+      size: 2044962
+    - path: output/preprocess/X_train.pkl
+      md5: 04a58e8d13748e243e817c0a2d10dd91
+      size: 8179363
+    - path: output/preprocess/model.pkl
+      md5: 6227d8cbf4869dd0cf705618bc008e57
+      size: 34146
+    - path: output/preprocess/y_test.pkl
+      md5: 09eabb64df4a6de7bab7b26426915b40
+      size: 1590
+    - path: output/preprocess/y_train.pkl
+      md5: 896e15d0f8257c856b3ed9efe1d10e72
+      size: 5911
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: output/preprocess/
+      md5: 503c0c7a93ddbdf490cb31c63fcf708f.dir
+      size: 10265972
+      nfiles: 5
+    - path: src/train.py
+      md5: 0f3d2601fad4c5f91f9b7b697bd435bb
+      size: 617
+    outs:
+    - path: output/train/sentiment_model
+      md5: 2d5a3a7cc92e92406be4edf52dd19be0
+      size: 46215
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: output/train/
+      md5: 52f41d69e8107a63d16ef095ddfa181e.dir
+      size: 46215
+      nfiles: 1
+    - path: src/evaluate.py
+      md5: 915a565a7887f5368f685de242cbbe57
+      size: 729
+    outs:
+    - path: output/evaluate/acc.pkl
+      md5: fc63a5b09d4157a66cdefde3396b6a12
+      size: 116

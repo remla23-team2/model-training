@@ -4,11 +4,10 @@ from src.train import train
 from src.evaluate import evaluate_model
 
 if __name__ == '__main__':
-    dataset = get_dataset('data/input/a1_RestaurantReviews_HistoricDump.tsv')
-    X_train, X_test, y_train, y_test = pre_process(dataset)
-
-    classifier = train(X_train, y_train)
+    dataset = get_dataset()
+    X_train, X_test, y_train, y_test = pre_process()
+    classifier = train()
     acc, cm = evaluate_model(classifier, X_test, y_test)
     
     # Show the cm in a nice format
-    print(cm)
+    print(acc, cm)

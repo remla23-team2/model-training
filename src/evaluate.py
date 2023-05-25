@@ -1,7 +1,26 @@
 from sklearn.metrics import confusion_matrix, accuracy_score
+import joblib
+import pickle
 
-def evaluate_model(classifier, X_test, y_test):
+def _load_artifacts():
+    classifier = joblib.load('output/train/sentiment_model')
+    X_test = pickle.load(open('output/preprocess/X_test.pkl', 'rb'))
+    y_test = pickle.load(open('output/preprocess/y_test.pkl', 'rb'))
+    return classifier, X_test, y_test
+
+def evaluate_model():
+    classifier, X_test, y_test = _load_artifacts()
     y_pred = classifier.predict(X_test)
 
     cm = confusion_matrix(y_test, y_pred)   
-    return accuracy_score(y_test, y_pred), cm
+    acc = accuracy_score(y_test, y_pred)
+
+    pickle.dump(acc, open('output/evaluate/acc.pkl', 'wb'))
+
+    return acc, cm
+
+def main():
+    evaluate_model()
+
+if __name__ == '__main__':
+    main()

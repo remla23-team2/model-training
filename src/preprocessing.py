@@ -13,6 +13,10 @@ ps = PorterStemmer()
 all_stopwords = stopwords.words('english')
 all_stopwords.remove('not')
 
+def _load_data():
+    reviews = pd.read_csv("output/getdata/data.tsv", delimiter='\t', quoting=3)
+    return reviews
+
 def process_review(review: str):
     review = re.sub('[^a-zA-Z]', ' ', review)
     review = review.lower()
@@ -21,7 +25,8 @@ def process_review(review: str):
     review = ' '.join(review)
     return review
 
-def pre_process(dataset: pd.DataFrame):
+def pre_process():
+    dataset = _load_data()
     corpus = []
     for i in range(0, 900):
         processed_review = process_review(dataset['Review'][i])
@@ -34,6 +39,19 @@ def pre_process(dataset: pd.DataFrame):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)
     
     # Save the CountVectorizer
-    pickle.dump(cv, open('data/models/c1_BoW_Sentiment_Model.pkl', "wb"))
+    pickle.dump(cv, open('output/preprocess/model.pkl', "wb"))
+    # Save sets
+    pickle.dump(X_train, open('output/preprocess/X_train.pkl', "wb"))
+    pickle.dump(X_test, open('output/preprocess/X_test.pkl', "wb"))
+    pickle.dump(y_train, open('output/preprocess/y_train.pkl', "wb"))
+    pickle.dump(y_test, open('output/preprocess/y_test.pkl', "wb"))
     
     return X_train, X_test, y_train, y_test
+
+def main():
+    pre_process()
+
+if __name__ == '__main__':
+    main()
+
+    
