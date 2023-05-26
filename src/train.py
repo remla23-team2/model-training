@@ -1,6 +1,6 @@
 import joblib
 import pickle
-
+import os
 from sklearn.naive_bayes import GaussianNB
 
 def _load_data():
@@ -22,4 +22,5 @@ def main():
     train()
 
 if __name__ =='__main__':
+    os.makedirs("output/train", exist_ok=True)
     main()

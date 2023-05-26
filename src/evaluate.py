@@ -1,6 +1,7 @@
 from sklearn.metrics import confusion_matrix, accuracy_score
 import joblib
 import pickle
+import os
 
 def _load_artifacts():
     classifier = joblib.load('output/train/sentiment_model')
@@ -23,4 +24,5 @@ def main():
     evaluate_model()
 
 if __name__ == '__main__':
+    os.makedirs("output/evaluate", exist_ok=True)
     main()

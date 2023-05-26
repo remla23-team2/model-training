@@ -5,7 +5,7 @@ import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
-
+import os
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 
@@ -52,6 +52,7 @@ def main():
     pre_process()
 
 if __name__ == '__main__':
+    os.makedirs("output/preprocess", exist_ok=True)
     main()
 
     

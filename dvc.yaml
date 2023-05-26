@@ -8,25 +8,21 @@ stages:
   preprocess:
     cmd: python src/preprocessing.py
     deps:
-    - output/getdata/
+    - output/getdata
     - src/preprocessing.py
     outs:
-    - output/preprocess/model.pkl
-    - output/preprocess/X_train.pkl
-    - output/preprocess/X_test.pkl
-    - output/preprocess/y_train.pkl
-    - output/preprocess/y_test.pkl
+    - output/preprocess
   train:
     cmd: python src/train.py
     deps:
-    - output/preprocess/
+    - output/preprocess
     - src/train.py
     outs:
-    - output/train/sentiment_model
+    - output/train
   evaluate:
     cmd: python src/evaluate.py
     deps:
-    - output/train/
+    - output/train
     - src/evaluate.py
     outs:
-    - output/evaluate/acc.pkl
+    - output/evaluate
