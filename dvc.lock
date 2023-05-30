@@ -48,10 +48,13 @@ stages:
       size: 46215
       nfiles: 1
     - path: src/evaluate.py
-      md5: cdfdddcfc16a69328d8ab32124182b4f
-      size: 791
+      md5: cc6e4ca9c67082df68481c546cf6cc76
+      size: 924
     outs:
     - path: output/evaluate
-      md5: 99d0b4681d06a74e46725f4ea849c7d3.dir
-      size: 116
+      md5: caf6180e08dfcbc8e7cd497ba1b88dbd.dir
+      size: 181
       nfiles: 1
+    - path: output/metrics/metrics.json
+      md5: cd6f5fb4cb9281088914cac59ba8be5c
+      size: 32

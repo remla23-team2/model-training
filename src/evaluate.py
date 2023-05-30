@@ -1,3 +1,4 @@
+import json
 from sklearn.metrics import confusion_matrix, accuracy_score
 import joblib
 import pickle
@@ -15,9 +16,8 @@ def evaluate_model():
 
     cm = confusion_matrix(y_test, y_pred)   
     acc = accuracy_score(y_test, y_pred)
-
-    pickle.dump(acc, open('output/evaluate/acc.pkl', 'wb'))
-
+    pickle.dump(cm, open('output/evaluate/cm.pkl', 'wb'))
+    json.dump({"accuracy": acc}, open('output/metrics/metrics.json', 'w'))
     return acc, cm
 
 def main():
@@ -25,4 +25,5 @@ def main():
 
 if __name__ == '__main__':
     os.makedirs("output/evaluate", exist_ok=True)
+    os.makedirs("output/metrics", exist_ok=True)
     main()

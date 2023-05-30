@@ -7,7 +7,7 @@ if __name__ == '__main__':
     dataset = get_dataset()
     X_train, X_test, y_train, y_test = pre_process()
     classifier = train()
-    acc, cm = evaluate_model(classifier, X_test, y_test)
+    acc, cm = evaluate_model()
     
     # Show the cm in a nice format
     print(acc, cm)
