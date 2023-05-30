@@ -25,7 +25,7 @@ def process_review(review: str):
     review = ' '.join(review)
     return review
 
-def pre_process():
+def pre_process(rs=42):
     dataset = _load_data()
     corpus = []
     for i in range(0, 900):
@@ -36,7 +36,7 @@ def pre_process():
     X = cv.fit_transform(corpus).toarray()
     y = dataset.iloc[:, -1].values
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=rs)
     
     # Save the CountVectorizer
     pickle.dump(cv, open('output/preprocess/model.pkl', "wb"))
