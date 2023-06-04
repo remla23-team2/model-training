@@ -21,7 +21,7 @@ def process_review(review: str):
     review = ' '.join(review)
     return review
 
-def pre_process(dataset: pd.DataFrame):
+def pre_process(dataset: pd.DataFrame, seed):
     corpus = []
     for i in range(0, 900):
         processed_review = process_review(dataset['Review'][i])
@@ -31,7 +31,7 @@ def pre_process(dataset: pd.DataFrame):
     X = cv.fit_transform(corpus).toarray()
     y = dataset.iloc[:, -1].values
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=seed)
     
     # Save the CountVectorizer
     pickle.dump(cv, open('data/models/c1_BoW_Sentiment_Model.pkl', "wb"))
