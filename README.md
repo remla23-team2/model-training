@@ -28,3 +28,5 @@ Open the terminal (in the application folder) and run the following commands to 
 docker build -t ghcr.io/remla23-team2/model-training:VERSION .
 ```
 
+# Testing
+For Assignment 5, after cloning this repository (model-training) and cd into it, directly run `pytest` in the terminal.

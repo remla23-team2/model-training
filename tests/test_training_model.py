@@ -5,7 +5,7 @@ from main import main
 
 
 
-def test_model_rubustness():
+def test_model_robustness():
     seed1 = random.randint(0, 100)
     seed2 = random.randint(0, 100)
     acc1 = main(seed1)
