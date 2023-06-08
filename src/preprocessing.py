@@ -23,11 +23,11 @@ def process_review(review: str):
 
 def pre_process(dataset: pd.DataFrame, seed):
     corpus = []
-    for i in range(0, 900):
+    for i in range(0, len(dataset)):
         processed_review = process_review(dataset['Review'][i])
         corpus.append(processed_review)
 
-    cv = CountVectorizer(max_features=1420)
+    cv = CountVectorizer(max_features=100)
     X = cv.fit_transform(corpus).toarray()
     y = dataset.iloc[:, -1].values
     
