@@ -25,18 +25,25 @@ def process_review(review: str):
     review = ' '.join(review)
     return review
 
+'''
 def pre_process(rs=42):
     dataset = _load_data()
     corpus = []
     for i in range(0, len(dataset)):
         processed_review = process_review(dataset['Review'][i])
         corpus.append(processed_review)
-
+'''
+def pre_process(dataset: pd.DataFrame, seed):
+    corpus = []
+    for i in range(0, len(dataset)):
+        processed_review = process_review(dataset['Review'][i])
+        corpus.append(processed_review)
+        
     cv = CountVectorizer(max_features=100)
     X = cv.fit_transform(corpus).toarray()
     y = dataset.iloc[:, -1].values
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=rs)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=seed)
     
     # Save the CountVectorizer
     pickle.dump(cv, open('output/preprocess/model.pkl', "wb"))
