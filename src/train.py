@@ -1,13 +1,26 @@
 import joblib
-
+import pickle
+import os
 from sklearn.naive_bayes import GaussianNB
 
+def _load_data():
+    X_train = pickle.load(open("output/preprocess/X_train.pkl", 'rb'))
+    y_train = pickle.load(open("output/preprocess/y_train.pkl", 'rb'))
+    return X_train, y_train
 
-def train(X, y):
+def train():
     classifier = GaussianNB()
-    classifier.fit(X, y)
+    X_train, y_train = _load_data()
+    classifier.fit(X_train, y_train)
 
     # Save the trained model and the CountVectorizer
-    joblib.dump(classifier, 'data/models/c2_Classifier_Sentiment_Model')
+    joblib.dump(classifier, open('output/train/sentiment_model', 'wb'))
     
     return classifier
+
+def main():
+    train()
+
+if __name__ =='__main__':
+    os.makedirs("output/train", exist_ok=True)
+    main()

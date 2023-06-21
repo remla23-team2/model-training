@@ -1,0 +1,31 @@
+stages:
+  get_data:
+    cmd: python src/getdata.py
+    deps:
+    - src/getdata.py
+    outs:
+    - output/getdata/data.tsv
+  preprocess:
+    cmd: python src/preprocessing.py
+    deps:
+    - output/getdata
+    - src/preprocessing.py
+    outs:
+    - output/preprocess
+  train:
+    cmd: python src/train.py
+    deps:
+    - output/preprocess
+    - src/train.py
+    outs:
+    - output/train
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - output/train
+    - src/evaluate.py
+    outs:
+    - output/evaluate
+    metrics: 
+    - output/metrics/metrics.json:
+        cache: false

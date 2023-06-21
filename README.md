@@ -28,3 +28,53 @@ Open the terminal (in the application folder) and run the following commands to 
 docker build -t ghcr.io/remla23-team2/model-training:VERSION .
 ```
 
+### DVC DAG
+
+```
+ +----------+  
+ | get_data |  
+ +----------+  
+       *       
+       *       
+       *       
++------------+ 
+| preprocess | 
++------------+ 
+       *       
+       *       
+       *       
+  +-------+    
+  | train |    
+  +-------+
+       *
+       *
+       *
+ +----------+
+ | evaluate |
+ +----------+
+ ```
+### DVC DAG Outputs
+
+```
++----------------------------+ 
+| ..\output\getdata\data.tsv |
++----------------------------+
+               *
+               *
+               *
+   +----------------------+
+   | ..\output\preprocess |
+   +----------------------+
+               *
+               *
+               *
+      +-----------------+
+      | ..\output\train |
+      +-----------------+
+               *
+               *
+               *
+    +--------------------+
+    | ..\output\evaluate |
+    +--------------------+
+ ```
