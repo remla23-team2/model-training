@@ -1,0 +1,60 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python src/getdata.py
+    deps:
+    - path: src/getdata.py
+      md5: fa6e8e74a7a201771f3a6bf8fba64968
+      size: 347
+    outs:
+    - path: output/getdata/data.tsv
+      md5: 176b7c728fe952e5d73c3b950299163f
+      size: 59078
+  preprocess:
+    cmd: python src/preprocessing.py
+    deps:
+    - path: output/getdata
+      md5: d67b6e180d525407d36234d7b89b856d.dir
+      size: 59089
+      nfiles: 2
+    - path: src/preprocessing.py
+      md5: 11fbbdb5d832608a9889e8012d1e82a1
+      size: 2110
+    outs:
+    - path: output/preprocess
+      md5: f7a0f3388511cfae1c4f513e22722600.dir
+      size: 742763
+      nfiles: 5
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: output/preprocess
+      md5: f7a0f3388511cfae1c4f513e22722600.dir
+      size: 742763
+      nfiles: 5
+    - path: src/train.py
+      md5: 5dff9eecfe109d4699b58a3998ce9375
+      size: 755
+    outs:
+    - path: output/train
+      md5: f57f44e3479b36216c033f3eb7ebbd77.dir
+      size: 3975
+      nfiles: 1
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: output/train
+      md5: f57f44e3479b36216c033f3eb7ebbd77.dir
+      size: 3975
+      nfiles: 1
+    - path: src/evaluate.py
+      md5: 4d0ed489af623bd0c81ddf9ddf5aa9c8
+      size: 1040
+    outs:
+    - path: output/evaluate
+      md5: 82c2bfeb49d5027996fb8766a719f735.dir
+      size: 181
+      nfiles: 1
+    - path: output/metrics/metrics.json
+      md5: ecfa975bd13225fffd627a4e6af570f3
+      size: 32

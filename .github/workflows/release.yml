@@ -7,6 +7,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+      - name: install requirements
+        run: pip install -r requirements.txt
+      - name: run mllint
+        run: mllint
+      - name: run tests
+        run: pytest
       - name: Registry Login (ghcr.io)
         run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Parse version info from tag
@@ -30,3 +36,5 @@ jobs:
             --tag $IMG:latest \
             .
           docker push --all-tags $IMG
+      - name: Run test
+        run: pytest
