@@ -10,8 +10,8 @@ def _load_artifacts():
     y_test = pickle.load(open('output/preprocess/y_test.pkl', 'rb'))
     return classifier, X_test, y_test
 
-def evaluate_model(classifier, X_test, y_test):
-    #classifier, X_test, y_test = _load_artifacts()
+def evaluate_model():
+    classifier, X_test, y_test = _load_artifacts()
     y_pred = classifier.predict(X_test)
 
     cm = confusion_matrix(y_test, y_pred)   

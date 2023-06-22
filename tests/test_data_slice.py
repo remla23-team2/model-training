@@ -15,7 +15,7 @@ dataset = pd.read_csv("data/input/a1_RestaurantReviews_HistoricDump.tsv", delimi
 sliced_dataset = dataset[dataset['Review'].apply(lambda x: len(x.split()) <= 5)].reset_index(drop=True)
 # short_reviews = dataset[dataset['Review'].apply(lambda x: len(x.split()) <= 5)]
 
-X_train, X_test, y_train, y_test = pre_process(dataset, seed)
+X_train, X_test, y_train, y_test = pre_process(seed)
 X_sliced_train, X_sliced_test, y_sliced_train, y_sliced_test = pre_process(sliced_dataset, seed)
 
 classifier_fulldata = classifier.fit(X_train, y_train)

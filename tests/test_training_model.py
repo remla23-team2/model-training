@@ -12,13 +12,12 @@ def trained_model():
     yield trained_model
 
 def test_model_robustness(trained_model):
-    dataset = get_dataset('data/input/a1_RestaurantReviews_HistoricDump.tsv')
-    _, X_test, _, y_test = pre_process(dataset, 10)
-    acc_origin, _ = evaluate_model(trained_model, X_test, y_test)
+    _, X_test, _, y_test = pre_process(10)
+    acc_origin, _ = evaluate_model()
     for seed in [1, 2]:
-        X_train, X_test, y_train, y_test = pre_process(dataset, seed)
+        X_train, X_test, y_train, y_test = pre_process(seed)
         classifier = GaussianNB()
         Classifier = classifier.fit(X_train, y_train)
-        acc, _ = evaluate_model(Classifier, X_test, y_test)
+        acc, _ = evaluate_model()
         assert abs(acc_origin - acc) <= 0.1
 
