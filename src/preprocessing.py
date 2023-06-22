@@ -33,8 +33,9 @@ def pre_process(rs=42):
         processed_review = process_review(dataset['Review'][i])
         corpus.append(processed_review)
 '''
-def pre_process(seed):
-    dataset = _load_data()
+def pre_process(seed, dataset=None):
+    if dataset is None:
+        dataset = _load_data()
     corpus = []
     for i in range(0, len(dataset)):
         processed_review = process_review(dataset['Review'][i])
@@ -57,7 +58,8 @@ def pre_process(seed):
     return X_train, X_test, y_train, y_test
 
 def main():
-    pre_process()
+    seed = 42
+    pre_process(seed)
 
 if __name__ == '__main__':
     os.makedirs("output/preprocess", exist_ok=True)
