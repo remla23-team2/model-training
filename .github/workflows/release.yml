@@ -19,7 +19,7 @@ jobs:
       - name: run mllint
         run: mllint
       - name: run tests
-        run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml --cov=src | tee tests/coverage/pytest-coverage.txt
+        run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml --cov=src
       - name: Pytest coverage comment
         id: coverageComment
         uses: MishaKav/pytest-coverage-comment@main
