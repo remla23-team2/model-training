@@ -42,11 +42,7 @@ def pre_process(seed, dataset=None):
     Preprocess the data.
     """
     if dataset is None:
-        dataset = _load_data()
-    corpus = []
-    for i in range(0, len(dataset)):
-        processed_review = process_review(dataset['Review'][i])
-        corpus.append(processed_review)
+        corpus = [process_review(dataset['Review'][i]) for i in range(len(dataset))]
 
     vectorizer = CountVectorizer(max_features=100)
     data_x = vectorizer.fit_transform(corpus).toarray()
