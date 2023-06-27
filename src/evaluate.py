@@ -1,5 +1,5 @@
 """
-Module for evaluating trained sentiment model.
+Evaluating trained sentiment model.
 """
 
 import os

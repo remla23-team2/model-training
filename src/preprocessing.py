@@ -47,18 +47,23 @@ def pre_process(seed, dataset=None):
         corpus.append(processed_review)
         
     cv = CountVectorizer(max_features=100)
-    X = cv.fit_transform(corpus).toarray()
-    y = dataset.iloc[:, -1].values
+    data_x = cv.fit_transform(corpus).toarray()
+    data_y = dataset.iloc[:, -1].values
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=seed)
+    X_train, X_test, y_train, y_test = train_test_split(data_x, data_y, test_size=0.20, random_state=seed)
     
     # Save the CountVectorizer
     pickle.dump(cv, open('output/preprocess/model.pkl', "wb"))
+    
     # Save sets
-    pickle.dump(X_train, open('output/preprocess/X_train.pkl', "wb"))
-    pickle.dump(X_test, open('output/preprocess/X_test.pkl', "wb"))
-    pickle.dump(y_train, open('output/preprocess/y_train.pkl', "wb"))
-    pickle.dump(y_test, open('output/preprocess/y_test.pkl', "wb"))
+    with open('output/preprocess/X_train.pkl', "wb") as x_train_file:
+        pickle.dump(X_train, x_train_file)
+    with open('output/preprocess/X_test.pkl', "wb") as x_test_file:
+        pickle.dump(X_test, x_test_file)
+    with open('output/preprocess/y_train.pkl', "wb") as y_train_file:
+        pickle.dump(y_train, y_train_file)
+    with open('output/preprocess/y_test.pkl', "wb") as y_test_file:
+        pickle.dump(y_test, y_test_file)
     
     return X_train, X_test, y_train, y_test
 

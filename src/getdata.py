@@ -1,5 +1,5 @@
 """
-Module to fetch and save the dataset
+Fetch and save the dataset
 """
 
 import os
