@@ -45,16 +45,17 @@ def pre_process(seed, dataset=None):
     for i in range(0, len(dataset)):
         processed_review = process_review(dataset['Review'][i])
         corpus.append(processed_review)
-        
+
     cv = CountVectorizer(max_features=100)
     data_x = cv.fit_transform(corpus).toarray()
     data_y = dataset.iloc[:, -1].values
-    
-    X_train, X_test, y_train, y_test = train_test_split(data_x, data_y, test_size=0.20, random_state=seed)
-    
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        data_x, data_y, test_size=0.20, random_state=seed)
+
     # Save the CountVectorizer
     pickle.dump(cv, open('output/preprocess/model.pkl', "wb"))
-    
+
     # Save sets
     with open('output/preprocess/X_train.pkl', "wb") as x_train_file:
         pickle.dump(X_train, x_train_file)
@@ -64,7 +65,7 @@ def pre_process(seed, dataset=None):
         pickle.dump(y_train, y_train_file)
     with open('output/preprocess/y_test.pkl', "wb") as y_test_file:
         pickle.dump(y_test, y_test_file)
-    
+
     return X_train, X_test, y_train, y_test
 
 def main():
@@ -73,6 +74,4 @@ def main():
 
 if __name__ == '__main__':
     os.makedirs("output/preprocess", exist_ok=True)
-    main()
-
-    
+    main()    
