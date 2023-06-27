@@ -13,10 +13,10 @@ def _load_artifacts():
     Function to load model artifacts from file
     """
     classifier = joblib.load("output/train/sentiment_model")
-    with open("output/preprocess/X_test.pkl", "rb") as f:
-        X_test = pickle.load(f)
-    with open("output/preprocess/y_test.pkl", "rb") as f:
-        y_test = pickle.load(f)
+    with open("output/preprocess/X_test.pkl", "rb") as file_x_test:
+        X_test = pickle.load(file_x_test)
+    with open("output/preprocess/y_test.pkl", "rb") as file_y_test:
+        y_test = pickle.load(file_y_test)
     return classifier, X_test, y_test
 
 def evaluate_model(classifier=None, X_test=None, y_test=None):
@@ -29,10 +29,10 @@ def evaluate_model(classifier=None, X_test=None, y_test=None):
 
     confusion_mat = confusion_matrix(y_test, y_pred)
     acc = accuracy_score(y_test, y_pred)
-    with open("output/evaluate/cm.pkl", "wb") as f:
-        pickle.dump(confusion_mat, f)
-    with open("output/metrics/metrics.json", "w", encoding='utf-8') as f:
-        json.dump({"accuracy": acc}, f)
+    with open("output/evaluate/cm.pkl", "wb") as confusion_file:
+        pickle.dump(confusion_mat, confusion_file)
+    with open("output/metrics/metrics.json", "w", encoding='utf-8') as metrics_file:
+        json.dump({"accuracy": acc}, metrics_file)
     return acc, confusion_mat
 
 def main():
