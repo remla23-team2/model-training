@@ -1,6 +1,6 @@
 """
 Module for testing data slicing functionality.
-""" 
+"""
 
 import sys
 import pandas as pd
@@ -16,7 +16,7 @@ classifier = GaussianNB()
 
 def main():
     dataset = pd.read_csv(
-       "data/input/a1_RestaurantReviews_HistoricDump.tsv", 
+       "data/input/a1_RestaurantReviews_HistoricDump.tsv",
        delimiter="\t", quoting=3)
     sliced_dataset = dataset[
         dataset["Review"].apply(lambda x: len(x.split()) <= 5)
@@ -24,8 +24,8 @@ def main():
     # short_reviews = dataset[dataset['Review'].apply(lambda x: len(x.split()) <= 5)]
 
     X_train, X_test, y_train, y_test = pre_process(SEED)
-    X_sliced_train, X_sliced_test, y_sliced_train, y_sliced_test = pre_process(
-        seed, dataset=sliced_dataset)
+    _, X_sliced_test, _, _ = pre_process(
+        SEED, dataset=sliced_dataset)
 
     classifier_fulldata = classifier.fit(X_train, y_train)
 

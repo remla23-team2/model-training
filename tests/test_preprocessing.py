@@ -1,18 +1,24 @@
-import pytest
-import sys
-import pandas as pd
+"""
+This module contains tests for preprocessing operations of the project.
+"""
 
+import sys
+import pytest
+import pandas as pd
+from sklearn.naive_bayes import GaussianNB
 sys.path.append("./")
 from src.preprocessing import pre_process
 from src.evaluate import evaluate_model
-from sklearn.naive_bayes import GaussianNB
 
-seed = 10
+SEED = 10
 classifier = GaussianNB()
 
 
 @pytest.fixture
 def preprocess_fixture():
+    """
+    This fixture preprocesses the dataset for further testing.
+    """
     dataset = pd.read_csv(
         "data/input/a1_RestaurantReviews_HistoricDump.tsv", delimiter="\t", quoting=3
     )
@@ -20,9 +26,9 @@ def preprocess_fixture():
     sliced_dataset = dataset[
         dataset["Review"].apply(lambda x: len(x.split()) <= 5)
     ].reset_index(drop=True)
-    X_train, X_test, y_train, y_test = pre_process(seed, dataset=dataset)
+    X_train, X_test, y_train, y_test = pre_process(SEED, dataset=dataset)
     X_sliced_train, X_sliced_test, y_sliced_train, y_sliced_test = pre_process(
-        seed, dataset=sliced_dataset
+        SEED, dataset=sliced_dataset
     )
 
     return (
@@ -38,8 +44,9 @@ def preprocess_fixture():
 
 
 def test_preprocess(preprocess_fixture):
-    # The preprocessing has already been done by the fixture
-    # You can write your test assertions here -> I copied the code below from ProffesorGPT
+    """
+    Test the preprocessing method.
+    """
     X_train, X_test, y_train, y_test, _, _, _, _ = preprocess_fixture
     assert len(X_train) > 0
     assert len(X_test) > 0
@@ -48,7 +55,9 @@ def test_preprocess(preprocess_fixture):
 
 
 def test_model_performance(preprocess_fixture):
-    # Test performance of model on full data
+    """
+    Test the performance of the model.
+    """
     (
         X_train,
         X_test,
