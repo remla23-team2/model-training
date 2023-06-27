@@ -1,7 +1,7 @@
 import joblib
 import pickle
 import os
-from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import LogisticRegression
 
 
 def _load_data():
@@ -13,7 +13,7 @@ def _load_data():
 def train(X_train=None, y_train=None):
     if X_train is None or y_train is None:
         X_train, y_train = _load_data()
-    classifier = GaussianNB()
+    classifier = LogisticRegression()
     classifier.fit(X_train, y_train)
 
     # Save the trained model and the CountVectorizer

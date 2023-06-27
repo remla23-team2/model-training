@@ -33,7 +33,7 @@ def pre_process(rs=42):
         processed_review = process_review(dataset['Review'][i])
         corpus.append(processed_review)
 '''
-def pre_process(seed, dataset=None):
+def pre_process(seed=42, dataset=None):
     if dataset is None:
         dataset = _load_data()
     corpus = []
@@ -48,7 +48,7 @@ def pre_process(seed, dataset=None):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=seed)
     
     # Save the CountVectorizer
-    pickle.dump(cv, open('output/preprocess/model.pkl', "wb"))
+    pickle.dump(cv, open('output/preprocess/cv.pkl', "wb"))
     # Save sets
     pickle.dump(X_train, open('output/preprocess/X_train.pkl', "wb"))
     pickle.dump(X_test, open('output/preprocess/X_test.pkl', "wb"))

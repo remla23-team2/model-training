@@ -19,14 +19,15 @@ def evaluate_model(classifier=None, X_test=None, y_test=None):
 
     cm = confusion_matrix(y_test, y_pred)
     acc = accuracy_score(y_test, y_pred)
-    pickle.dump(cm, open("output/evaluate/cm.pkl", "wb"))
-    json.dump({"accuracy": acc}, open("output/metrics/metrics.json", "w"))
     return acc, cm
 
+def save_metrics(acc, cm):
+    pickle.dump(cm, open("output/evaluate/cm.pkl", "wb"))
+    json.dump({"accuracy": acc}, open("output/metrics/metrics.json", "w"))
 
 def main():
-    evaluate_model()
-
+    acc, cm = evaluate_model()
+    save_metrics(acc, cm)
 
 if __name__ == "__main__":
     os.makedirs("output/evaluate", exist_ok=True)
