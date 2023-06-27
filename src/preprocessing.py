@@ -1,3 +1,8 @@
+"""
+Module for preprocessing the fetched data
+"""
+
+import os
 import re
 import pickle
 import pandas as pd
@@ -5,13 +10,13 @@ import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
-import os
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 
 ps = PorterStemmer()
 all_stopwords = stopwords.words('english')
 all_stopwords.remove('not')
+
 
 def _load_data():
     reviews = pd.read_csv("output/getdata/data.tsv", delimiter='\t', quoting=3)

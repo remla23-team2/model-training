@@ -1,5 +1,9 @@
-import pandas as pd
+"""
+Module to fetch and save the dataset
+"""
+
 import os
+import pandas as pd
 
 
 def get_dataset():
