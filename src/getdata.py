@@ -15,6 +15,7 @@ def get_dataset():
         quoting=3, dtype={'Review':'str', 'Liked':'int'},
         usecols=['Review', 'Liked']    
     )
+    dataset = dataset[['Review', 'Liked']]
     dataset.to_csv("output/getdata/data.tsv", sep="\t", quoting=3)
 
 
