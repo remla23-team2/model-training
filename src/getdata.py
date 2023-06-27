@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 
-
 def get_dataset():
     dataset = pd.read_csv(
         "data/input/a1_RestaurantReviews_HistoricDump.tsv", delimiter="\t", quoting=3

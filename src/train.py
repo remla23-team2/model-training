@@ -18,13 +18,10 @@ def train(X_train=None, y_train=None):
 
     # Save the trained model and the CountVectorizer
     joblib.dump(classifier, open("output/train/sentiment_model", "wb"))
-
     return classifier
-
 
 def main():
     train()
-
 
 if __name__ == "__main__":
     os.makedirs("output/train", exist_ok=True)

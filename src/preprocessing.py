@@ -25,15 +25,7 @@ def process_review(review: str):
     review = ' '.join(review)
     return review
 
-'''
-def pre_process(rs=42):
-    dataset = _load_data()
-    corpus = []
-    for i in range(0, len(dataset)):
-        processed_review = process_review(dataset['Review'][i])
-        corpus.append(processed_review)
-'''
-def pre_process(seed=42, dataset=None):
+def pre_process(dataset=None, seed=42):
     if dataset is None:
         dataset = _load_data()
     corpus = []
@@ -58,8 +50,7 @@ def pre_process(seed=42, dataset=None):
     return X_train, X_test, y_train, y_test
 
 def main():
-    seed = 42
-    pre_process(seed)
+    pre_process()
 
 if __name__ == '__main__':
     os.makedirs("output/preprocess", exist_ok=True)
