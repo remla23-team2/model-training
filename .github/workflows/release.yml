@@ -19,13 +19,14 @@ jobs:
       - name: run mllint
         run: mllint
       - name: run tests
-        run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml --cov=src
+        run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml --cov=src | tee tests/coverage/pytest-coverage.txt
       - name: Pytest coverage comment
         id: coverageComment
         uses: MishaKav/pytest-coverage-comment@main
         with:
-          hide-comment: false
+          hide-comment: true
           pytest-xml-coverage-path: tests/coverage/coverage.xml
+          pytest-coverage-path: tests/coverage/pytest-coverage.txt
           junitxml-path: tests/coverage/pytest.xml
       - name: Check the HTML output
         run: echo "Coverage report - ${{ steps.coverageComment.outputs.coverageHtml }}"
