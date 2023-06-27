@@ -22,6 +22,32 @@ jobs:
         with:
           name: coverage-report
           path: htmlcov/
+      - name: Update README.md
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            // Read the coverage percentage from the generated report
+            const reportPath = './htmlcov/index.html';  // Modify this if your coverage report path is different
+            const reportContent = fs.readFileSync(reportPath, 'utf8');
+            const coverageRegex = /<span class="pc_cov">([0-9]+)%<\/span>/;
+            const coverageMatch = reportContent.match(coverageRegex);
+            const coveragePercentage = coverageMatch ? coverageMatch[1] : 'N/A';
+
+            // Generate the coverage badge Markdown
+            const badgeUrl = `https://img.shields.io/badge/coverage-${coveragePercentage}%25-green.svg`;
+            const badgeMarkdown = `[![Coverage](${badgeUrl})](${reportPath})`;
+
+            // Read the README.md file
+            const readmePath = './README.md';  // Modify this if your README.md path is different
+            let readmeContent = fs.readFileSync(readmePath, 'utf8');
+
+            // Update the README.md file with the coverage badge
+            const badgeRegex = /\[!\[Coverage\]\(.+\)\]\(.+\)/;
+            const updatedReadmeContent = readmeContent.replace(badgeRegex, badgeMarkdown);
+            fs.writeFileSync(readmePath, updatedReadmeContent, 'utf8');
       - name: Registry Login (ghcr.io)
         run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Parse version info from tag
