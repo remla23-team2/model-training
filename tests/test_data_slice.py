@@ -11,6 +11,7 @@ from sklearn.naive_bayes import GaussianNB
 
 seed = 10
 classifier = GaussianNB()
+sliced_classifier = GaussianNB()
 
 dataset = pd.read_csv(
     "data/input/a1_RestaurantReviews_HistoricDump.tsv", delimiter="\t", quoting=3
@@ -26,6 +27,7 @@ X_sliced_train, X_sliced_test, y_sliced_train, y_sliced_test = pre_process(
 )
 
 classifier_fulldata = classifier.fit(X_train, y_train)
+classifier_sliced = sliced_classifier.fit(X_sliced_train, y_sliced_train)
 
 print(
     dataset,
@@ -48,5 +50,8 @@ acc_full_data, _ = evaluate_model(
     classifier=classifier_fulldata, X_test=X_test, y_test=y_test
 )
 acc_data_slice, _ = evaluate_model(
-    classifier=classifier_fulldata, X_test=X_test, y_test=y_test
+    classifier=classifier_sliced, X_test=X_test, y_test=y_test
 )
+
+def test_data_slices():
+    assert (acc_full_data - acc_data_slice) <= 0.1
