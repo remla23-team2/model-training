@@ -15,7 +15,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 pytest pytest-cov
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
+      - name: Upgrade DVC
+        run: pip install --upgrade dvc
+      - name: Run DVC pipeline
+        run: dvc repro
       - name: Build coverage file
         run: |
           pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest-coverage.txt
@@ -23,5 +26,5 @@ jobs:
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
+          pytest-coverage-path: pytest-coverage.txt
+          junitxml-path: pytest.xml
