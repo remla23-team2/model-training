@@ -24,8 +24,8 @@ def _load_data():
     Load data from data.tsv.
     """
     reviews = pd.read_csv("output/getdata/data.tsv", delimiter='\t', 
-                          quoting=3, dtype={'Review':'str', 'Liked':'int'},
-                          usecols=['Review', 'Liked'])
+                          quoting=3)
+    reviews = reviews[['Review', 'Liked']]
     return reviews
 
 def process_review(review: str):
