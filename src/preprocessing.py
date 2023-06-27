@@ -37,14 +37,6 @@ def process_review(review: str):
     review = ' '.join(review)
     return review
 
-'''
-def pre_process(rs=42):
-    dataset = _load_data()
-    corpus = []
-    for i in range(0, len(dataset)):
-        processed_review = process_review(dataset['Review'][i])
-        corpus.append(processed_review)
-'''
 def pre_process(seed, dataset=None):
     """
     Preprocess the data.
