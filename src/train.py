@@ -11,7 +11,7 @@ import joblib
 def _load_data():
     """
     Load the preprocessed training data.
-    """ 
+    """
 
     with open("output/preprocess/X_train.pkl", "rb") as x_train_file:
         X_train = pickle.load(x_train_file)
@@ -24,7 +24,7 @@ def train(X_train=None, y_train=None):
     """
     Train the model with the given training data.
     """
-    
+
     if X_train is None or y_train is None:
         X_train, y_train = _load_data()
     classifier = GaussianNB()
@@ -38,6 +38,9 @@ def train(X_train=None, y_train=None):
 
 
 def main():
+    """
+    main function
+    """
     train()
 
 

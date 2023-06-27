@@ -57,7 +57,7 @@ def pre_process(seed, dataset=None):
         corpus.append(processed_review)
 
     vectorizer = CountVectorizer(max_features=100)
-    data_x = cv.fit_transform(corpus).toarray()
+    data_x = vectorizer.fit_transform(corpus).toarray()
     data_y = dataset.iloc[:, -1].values
 
     X_train, X_test, y_train, y_test = train_test_split(
@@ -80,9 +80,12 @@ def pre_process(seed, dataset=None):
     return X_train, X_test, y_train, y_test
 
 def main():
+    """
+    main function
+    """
     seed = 42
     pre_process(seed)
 
 if __name__ == '__main__':
     os.makedirs("output/preprocess", exist_ok=True)
-    main()    
+    main()

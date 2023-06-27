@@ -7,6 +7,9 @@ import pandas as pd
 
 
 def get_dataset():
+    """
+    Get the dataset and save it to output/getdata/data.tsv
+    """
     dataset = pd.read_csv(
         "data/input/a1_RestaurantReviews_HistoricDump.tsv", delimiter="\t", quoting=3
     )
