@@ -12,7 +12,12 @@ jobs:
       - name: run mllint
         run: mllint
       - name: run tests
-        run: pytest
+        run: pytest --cov=src --cov-report=html
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: htmlcov/
       - name: Registry Login (ghcr.io)
         run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Parse version info from tag
@@ -36,5 +41,3 @@ jobs:
             --tag $IMG:latest \
             .
           docker push --all-tags $IMG
-      - name: Run test
-        run: pytest
