@@ -81,7 +81,7 @@ docker build -t ghcr.io/remla23-team2/model-training:VERSION .
 
 ### Test Coverage Report
 
-https://github.com/remla23-team2/model-training/suites/13904181358/artifacts/773493594
+https://github.com/remla23-team2/model-training/suites/13904181358/artifacts/773493594/htmlcov/index.html
 
 [![Coverage Report](https://github.com/remla23-team2/model-training/actions/artifacts/automated-testing/coverage-report/htmlcov/index.html)](https://github.com/remla23-team2/model-training/actions/artifacts/automated-testing/coverage-report/htmlcov/index.html)
 
