@@ -19,25 +19,34 @@ jobs:
       - name: run mllint
         run: mllint
       - name: run tests
-        run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml --cov=src
+        run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml
       - name: Pytest coverage comment
         id: coverageComment
         uses: MishaKav/pytest-coverage-comment@main
         with:
           hide-comment: true
           pytest-xml-coverage-path: tests/coverage/coverage.xml
-          pytest-coverage-path: tests/coverage/pytest-coverage.txt
           junitxml-path: tests/coverage/pytest.xml
       - name: Check the HTML output
         run: echo "Coverage report - ${{ steps.coverageComment.outputs.coverageHtml }}"
-      - name: Create code coverage badge
-        uses: exuanbo/actions-deploy-gist@v1
+      - name: Coverage Badge
+        uses: schneegans/dynamic-badges-action@v1.6.0
         with:
-          token: ${{ secrets.GH_TOKEN }}
-          gist_id: 0b718adf1de8927ebc746a2fd373c9b9
-          gist_file_name: code-coverage.html
-          file_path: ${{ steps.coverageComment.outputs.coverageHtml }}
-          file_type: text
+          auth: ${{ secrets.GH_TOKEN }}
+          gistID: 9f559ce5704ca16aca7db02b79efe22f
+          filename: code-coverage.json
+          label: Code Coverage
+          message: ${{ steps.coverageComment.outputs.coverage }}
+          color: ${{ steps.coverageComment.outputs.color }}
+      - name: Test Results Badge
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GH_TOKEN }}
+          gistID: 74faf8906ea0f22889d78cfd9c88171e
+          filename: pytest-results.json
+          label: Pytest Results
+          message: "${{ steps.coverageComment.outputs.tests }} tests, ${{ steps.coverageComment.outputs.failures }} failures"
+          color: ${{ steps.coverageComment.outputs.failures == 0 && 'green' || 'red' }}
       - name: Registry Login (ghcr.io)
         run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Parse version info from tag
