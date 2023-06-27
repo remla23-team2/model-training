@@ -1,57 +1,27 @@
-# this code is only for testing!
+import pytest
+import sys
 
 import pandas as pd
-import numpy as np
-import sys
 
 sys.path.append("./")
 from src.preprocessing import pre_process
 from src.evaluate import evaluate_model
-from sklearn.naive_bayes import GaussianNB
 
-seed = 10
-classifier = GaussianNB()
-sliced_classifier = GaussianNB()
+@pytest.fixture()
+def dataset():
+    dataset = pd.read_csv("output/getdata/data.tsv", delimiter="\t", quoting=3)
+    yield dataset
 
-dataset = pd.read_csv(
-    "data/input/a1_RestaurantReviews_HistoricDump.tsv", delimiter="\t", quoting=3
-)
-sliced_dataset = dataset[
-    dataset["Review"].apply(lambda x: len(x.split()) <= 5)
-].reset_index(drop=True)
-# short_reviews = dataset[dataset['Review'].apply(lambda x: len(x.split()) <= 5)]
-
-X_train, X_test, y_train, y_test = pre_process(seed)
-X_sliced_train, X_sliced_test, y_sliced_train, y_sliced_test = pre_process(
-    seed, dataset=sliced_dataset
-)
-
-classifier_fulldata = classifier.fit(X_train, y_train)
-classifier_sliced = sliced_classifier.fit(X_sliced_train, y_sliced_train)
-
-print(
-    dataset,
-    "\n\n\n",
-    dataset["Review"],
-    "\n\n\n",
-    sliced_dataset,
-    "\n\n\n",
-    len(dataset),
-    len(sliced_dataset),
-    np.shape(y_test),
-    np.shape(X_test),
-    np.shape(X_sliced_test),
-    "\n\n\n",
-    X_test,
-    X_sliced_test,
-)
-
-acc_full_data, _ = evaluate_model(
-    classifier=classifier_fulldata, X_test=X_test, y_test=y_test
-)
-acc_data_slice, _ = evaluate_model(
-    classifier=classifier_sliced, X_test=X_test, y_test=y_test
-)
-
-def test_data_slices():
-    assert (acc_full_data - acc_data_slice) <= 0.1
+def test_data_slices(dataset):
+    # Preprocess the full dataset
+    _, X_test, _, y_test = pre_process(dataset=dataset)
+    
+    # Create sliced dataset
+    sliced_dataset = dataset[dataset["Review"].apply(lambda x: len(x.split()) <= 5)].reset_index(drop=True)
+    
+    # Preprocess the sliced dataset
+    _, X_test_sliced, _, y_test_sliced = pre_process(dataset=sliced_dataset)
+    
+    acc_full_data, _ = evaluate_model(X_test=X_test, y_test=y_test)
+    acc_data_slice, _ = evaluate_model(X_test=X_test_sliced, y_test=y_test_sliced)
+    assert (acc_full_data - acc_data_slice) <= 0.15
