@@ -24,7 +24,7 @@ jobs:
         id: coverageComment
         uses: MishaKav/pytest-coverage-comment@main
         with:
-          hide-comment: true
+          hide-comment: false
           pytest-xml-coverage-path: tests/coverage/coverage.xml
           junitxml-path: tests/coverage/pytest.xml
       - name: Check the HTML output
