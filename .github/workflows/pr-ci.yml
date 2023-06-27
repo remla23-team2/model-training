@@ -19,12 +19,12 @@ jobs:
         run: pip install --upgrade dvc
       - name: Run DVC pipeline
         run: dvc repro
-      - name: Build coverage file
-        run: |
-          pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest-coverage.txt
-
+      - name: run tests
+        run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml
       - name: Pytest coverage comment
+        id: coverageComment
         uses: MishaKav/pytest-coverage-comment@main
         with:
-          pytest-coverage-path: pytest-coverage.txt
-          junitxml-path: pytest.xml
+          hide-comment: false
+          pytest-xml-coverage-path: tests/coverage/coverage.xml
+          junitxml-path: tests/coverage/pytest.xml
