@@ -27,6 +27,8 @@ jobs:
           hide-comment: true
           pytest-xml-coverage-path: tests/coverage/coverage.xml
           junitxml-path: tests/coverage/pytest.xml
+      - name: Check the HTML output
+        run: echo "Coverage report - ${{ steps.coverageComment.outputs.coverageHtml }}"
       - name: Create code coverage badge
         uses: exuanbo/actions-deploy-gist@v1
         with:
