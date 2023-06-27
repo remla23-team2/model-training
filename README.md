@@ -78,3 +78,8 @@ docker build -t ghcr.io/remla23-team2/model-training:VERSION .
     | ..\output\evaluate |
     +--------------------+
  ```
+
+### Code Coverage Report
+
+<!-- Pytest Coverage Comment:Begin -->
+<!-- Pytest Coverage Comment:End -->
