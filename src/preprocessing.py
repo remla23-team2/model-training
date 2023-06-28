@@ -7,6 +7,7 @@ import re
 import pickle
 import pandas as pd
 import nltk
+from lib_preproc import process_review
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import CountVectorizer
@@ -28,17 +29,17 @@ def _load_data():
     reviews = reviews[['Review', 'Liked']]
     return reviews
 
-def process_review(review: str):
-    """
-    This could be replaced by our lib.
-    """
-    review = re.sub('[^a-zA-Z]', ' ', review)
-    review = review.lower()
-    review = review.split()
-    # review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
-    review = [ps.stem(word) for word in review if word not in set(all_stopwords)]
-    review = ' '.join(review)
-    return review
+# def process_review(review: str):
+#     """
+#     This could be replaced by our lib.
+#     """
+#     review = re.sub('[^a-zA-Z]', ' ', review)
+#     review = review.lower()
+#     review = review.split()
+#     # review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
+#     review = [ps.stem(word) for word in review if word not in set(all_stopwords)]
+#     review = ' '.join(review)
+#     return review
 
 def pre_process(seed, dataset=None):
     """
