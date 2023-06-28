@@ -11,8 +11,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run Pylint and DSlinter
         run: pylint --load-plugins=dslinter src/*.py
-      # - name: Run DSLint
-      #   run: dslint src/*.py
+      - name: Run Flake8 testing
+        run: flake8 src/*.py
       - name: run mllint
         run: mllint
       - name: run tests
