@@ -24,7 +24,7 @@ def _load_data():
     Load data from data.tsv.
     """
     reviews = pd.read_csv("output/getdata/data.tsv", delimiter='\t',
-                          quoting=3, dtype={'Review':'str', 'Liked':'int'})
+                          quoting=3, dtype={'Review': 'str', 'Liked': 'int'})
     reviews = reviews[['Review', 'Liked']]
     return reviews
 
@@ -35,7 +35,8 @@ def process_review(review: str):
     review = re.sub('[^a-zA-Z]', ' ', review)
     review = review.lower()
     review = review.split()
-    review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
+    # review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
+    review = [ps.stem(word) for word in review if word not in set(all_stopwords)]
     review = ' '.join(review)
     return review
 
@@ -75,6 +76,7 @@ def main():
     """
     seed = 42
     pre_process(seed)
+
 
 if __name__ == '__main__':
     os.makedirs("output/preprocess", exist_ok=True)
