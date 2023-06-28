@@ -14,10 +14,10 @@ def dataset():
     Yields:
         pd.DataFrame: dataset
     """
-    dataset = pd.read_csv("output/getdata/data.tsv", delimiter="\t", quoting=3,
-                          dtype={'Review': str, 'Liked': int})
-    dataset = dataset[['Review', 'Liked']]
-    yield dataset
+    data = pd.read_csv("output/getdata/data.tsv", delimiter="\t", quoting=3,
+                       dtype={'Review': str, 'Liked': int})
+    data = data[['Review', 'Liked']]
+    yield data
 
 def test_data_slices(dataset):
     """

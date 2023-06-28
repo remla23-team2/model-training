@@ -28,7 +28,7 @@ def test_pipeline_integration():
     assert os.path.exists("output/preprocess/y_test.pkl")
     assert os.path.exists("output/preprocess/X_train.pkl")
     assert os.path.exists("output/preprocess/y_train.pkl")
-    assert os.path.exists("output/preprocess/cv.pkl")
+    assert os.path.exists("output/preprocess/vectorizer.pkl")
 
     # Train the model
     classifier = train(X_train, y_train)

@@ -16,8 +16,6 @@ jobs:
         run: pip install --upgrade dvc
       - name: Run DVC pipeline
         run: dvc repro
-      - name: run mllint
-        run: mllint
       - name: run tests
         run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml
       - name: Pytest coverage comment
@@ -45,6 +43,12 @@ jobs:
           label: Pytest Results
           message: "${{ steps.coverageComment.outputs.tests }} tests, ${{ steps.coverageComment.outputs.failures }} failures"
           color: ${{ steps.coverageComment.outputs.failures == 0 && 'green' || 'red' }}
+      - name: Run Pylint and DSlinter
+        run: pylint --load-plugins=dslinter src/ tests/ main.py
+      - name: Run Flake8 testing
+        run: flake8
+      - name: run mllint
+        run: mllint
       - name: Registry Login (ghcr.io)
         run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Parse version info from tag
