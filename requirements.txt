@@ -1,3 +1,4 @@
+dslinter
 dvc==2.58.1
 dvc-data==0.51.0
 dvc-gdrive==2.19.2
@@ -6,6 +7,7 @@ dvc-objects==0.22.0
 dvc-render==0.5.3
 dvc-studio-client==0.10.0
 dvc-task==0.2.1
+flake8
 GitPython==3.1.31
 google-api-core==2.11.0
 google-api-python-client==2.88.0
