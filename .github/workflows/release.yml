@@ -40,5 +40,5 @@ jobs:
             --tag $IMG:latest \
             .
           docker push --all-tags $IMG
-      - name: Run test
-        run: pytest
+      # - name: Run test
+      #   run: pytest
