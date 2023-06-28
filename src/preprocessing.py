@@ -3,7 +3,7 @@ Module for preprocessing the fetched data
 """
 
 import os
-import re
+# import re
 import pickle
 import pandas as pd
 import nltk
