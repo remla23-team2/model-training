@@ -7,16 +7,48 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       - name: install requirements
         run: pip install -r requirements.txt
+      - name: Upgrade DVC
+        run: pip install --upgrade dvc
+      - name: Run DVC pipeline
+        run: dvc repro
+      - name: run tests
+        run: pytest --junitxml=tests/coverage/pytest.xml --cov-report=xml:tests/coverage/coverage.xml
+      - name: Pytest coverage comment
+        id: coverageComment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          hide-comment: true
+          pytest-xml-coverage-path: tests/coverage/coverage.xml
+          junitxml-path: tests/coverage/pytest.xml
+      - name: Coverage Badge
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GH_TOKEN }}
+          gistID: 9f559ce5704ca16aca7db02b79efe22f
+          filename: code-coverage.json
+          label: Code Coverage
+          message: ${{ steps.coverageComment.outputs.coverage }}
+          color: ${{ steps.coverageComment.outputs.color }}
+      - name: Test Results Badge
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GH_TOKEN }}
+          gistID: 74faf8906ea0f22889d78cfd9c88171e
+          filename: pytest-results.json
+          label: Pytest Results
+          message: "${{ steps.coverageComment.outputs.tests }} tests, ${{ steps.coverageComment.outputs.failures }} failures"
+          color: ${{ steps.coverageComment.outputs.failures == 0 && 'green' || 'red' }}
       - name: Run Pylint and DSlinter
-        run: pylint --load-plugins=dslinter src/*.py
+        run: pylint --load-plugins=dslinter src/ tests/ main.py
       - name: Run Flake8 testing
-        run: flake8 src/*.py
+        run: flake8
       - name: run mllint
         run: mllint
-      # - name: run tests
-      #   run: pytest
       - name: Registry Login (ghcr.io)
         run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Parse version info from tag
@@ -40,5 +72,3 @@ jobs:
             --tag $IMG:latest \
             .
           docker push --all-tags $IMG
-      # - name: Run test
-      #   run: pytest

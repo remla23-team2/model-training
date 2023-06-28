@@ -85,6 +85,9 @@ disable=raw-checker-failed,
         suppressed-message,
         useless-suppression,
         deprecated-pragma,
+        use-symbolic-message-instead,
+        # We don't want to get warnings for pytest.fixtures
+        redefined-outer-name,
         use-symbolic-message-instead
 
 # Enable the message, report, category or checker with the given id(s). You can
@@ -394,6 +397,7 @@ good-names=i,
            X_test,
            X_sliced_train,
            X_sliced_test,
+           X_test_sliced,
            _
 
 # Good variable names regexes, separated by a comma. If names match any regex,

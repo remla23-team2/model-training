@@ -3,7 +3,6 @@ Module for preprocessing the fetched data
 """
 
 import os
-# import re
 import pickle
 import pandas as pd
 import nltk
@@ -29,24 +28,13 @@ def _load_data():
     reviews = reviews[['Review', 'Liked']]
     return reviews
 
-# def process_review(review: str):
-#     """
-#     This could be replaced by our lib.
-#     """
-#     review = re.sub('[^a-zA-Z]', ' ', review)
-#     review = review.lower()
-#     review = review.split()
-#     # review = [ps.stem(word) for word in review if not word in set(all_stopwords)]
-#     review = [ps.stem(word) for word in review if word not in set(all_stopwords)]
-#     review = ' '.join(review)
-#     return review
-
-def pre_process(seed, dataset=None):
+def pre_process(dataset=None, seed=42):
     """
     Preprocess the data.
     """
     if dataset is None:
-        corpus = [process_review(dataset['Review'][i]) for i in range(len(dataset))]
+        dataset = _load_data()
+    corpus = [process_review(review) for review in dataset['Review']]
 
     vectorizer = CountVectorizer(max_features=100)
     data_x = vectorizer.fit_transform(corpus).toarray()
@@ -56,7 +44,7 @@ def pre_process(seed, dataset=None):
         data_x, data_y, test_size=0.20, random_state=seed)
 
     # Save the CountVectorizer
-    with open('output/preprocess/model.pkl', "wb") as model_file:
+    with open('output/preprocess/vectorizer.pkl', "wb") as model_file:
         pickle.dump(vectorizer, model_file)
 
     # Save sets
@@ -73,11 +61,9 @@ def pre_process(seed, dataset=None):
 
 def main():
     """
-    main function
+    Main function
     """
-    seed = 42
-    pre_process(seed)
-
+    pre_process()
 
 if __name__ == '__main__':
     os.makedirs("output/preprocess", exist_ok=True)

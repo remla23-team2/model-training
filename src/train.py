@@ -2,11 +2,10 @@
 Module for training a sentiment analysis model with fetched and preprocessed data.
 """
 
-import os
 import pickle
-from sklearn.naive_bayes import GaussianNB
+import os
 import joblib
-
+from sklearn.linear_model import LogisticRegression
 
 def _load_data():
     """
@@ -27,7 +26,7 @@ def train(X_train=None, y_train=None):
 
     if X_train is None or y_train is None:
         X_train, y_train = _load_data()
-    classifier = GaussianNB()
+    classifier = LogisticRegression()
     classifier.fit(X_train, y_train)
 
     # Save the trained model and the CountVectorizer
@@ -36,13 +35,11 @@ def train(X_train=None, y_train=None):
 
     return classifier
 
-
 def main():
     """
     main function
     """
     train()
-
 
 if __name__ == "__main__":
     os.makedirs("output/train", exist_ok=True)

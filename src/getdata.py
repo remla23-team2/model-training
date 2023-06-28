@@ -5,7 +5,6 @@ Fetch and save the dataset
 import os
 import pandas as pd
 
-
 def get_dataset():
     """
     Get the dataset and save it to output/getdata/data.tsv
