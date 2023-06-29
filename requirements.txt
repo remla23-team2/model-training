@@ -14,7 +14,7 @@ google-api-python-client==2.88.0
 google-auth==2.19.0
 google-auth-httplib2==0.1.0
 googleapis-common-protos==1.59.0
-lib-preprocessing-REMLA23-team2==0.1.19
+lib-preprocessing-REMLA23-team2==0.1.21
 joblib==1.2.0
 mllint
 nltk==3.8.1
