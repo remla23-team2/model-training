@@ -4,16 +4,15 @@ Fetch and save the dataset
 
 import os
 import pandas as pd
+import gdown
 
 def get_dataset():
     """
     Get the dataset and save it to output/getdata/data.tsv
     """
-    dataset = pd.read_csv(
-        "data/input/a1_RestaurantReviews_HistoricDump.tsv", delimiter="\t",
-        quoting=3, dtype={'Review': 'str', 'Liked': 'int'})
-    dataset = dataset[['Review', 'Liked']]
-    dataset.to_csv("output/getdata/data.tsv", sep="\t", quoting=3)
+    url = 'https://drive.google.com/uc?id=15Ud_ABNmAjZLK3MPMCzp96KxbnVKx5uY'
+    output = 'output/getdata/data.tsv'
+    gdown.download(url, output, quiet=False)
 
 
 if __name__ == "__main__":
