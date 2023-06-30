@@ -29,7 +29,7 @@ def test_data_slices(dataset):
     _, X_test, _, y_test = pre_process(dataset=dataset)
 
     # Create sliced dataset
-    sliced_dataset = dataset[dataset["Review"].apply(lambda x: len(x.split()) <= 5)]
+    sliced_dataset = dataset[dataset["Review"].apply(lambda x: len(x.split()) <= 10)]
     sliced_dataset = sliced_dataset.reset_index(drop=True)
 
     # Preprocess the sliced dataset
