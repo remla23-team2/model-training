@@ -10,7 +10,7 @@ stages:
     outs:
     - path: output/getdata/data.tsv
       md5: 176b7c728fe952e5d73c3b950299163f
-      size: 58177
+      size: 59078
   preprocess:
     cmd: python src/preprocessing.py
     deps:
@@ -20,12 +20,12 @@ stages:
       nfiles: 2
     - path: src/preprocessing.py
       hash: md5
-      md5: 376f0e02899736344f850e4359104c86
-      size: 2159
+      md5: f216d486d61f7d45cdc2b9f9f7a7a10c
+      size: 2012
     outs:
     - path: output/preprocess
       hash: md5
-      md5: 2858ae56a599eb3176c7941c4345dcc5.dir
+      md5: 4322089d0c038186ba19c0442efb309a.dir
       size: 743162
       nfiles: 5
   train:
@@ -33,13 +33,13 @@ stages:
     deps:
     - path: output/preprocess
       hash: md5
-      md5: 2858ae56a599eb3176c7941c4345dcc5.dir
+      md5: 4322089d0c038186ba19c0442efb309a.dir
       size: 743162
       nfiles: 5
     - path: src/train.py
       hash: md5
-      md5: c0dd37590936204fb164031891db488e
-      size: 1115
+      md5: 53a957d044ec99e563eb5aaccc008f7a
+      size: 1114
     outs:
     - path: output/train
       hash: md5
@@ -56,8 +56,8 @@ stages:
       nfiles: 1
     - path: src/evaluate.py
       hash: md5
-      md5: bbe325b91598bc7bbfd9d85b7cc268a5
-      size: 1708
+      md5: cf2147561e7a8c6842d180c08910085c
+      size: 1707
     outs:
     - path: output/evaluate
       hash: md5
